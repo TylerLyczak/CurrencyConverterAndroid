@@ -15,15 +15,27 @@ import static java.lang.Math.round;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Booleans used for the first radio buttons, "From" buttons
     boolean isUsdFrom = false;
     boolean isEurFrom = false;
+    boolean isGbpFrom = false;
+    boolean isInrFrom = false;
+    boolean isAudFrom = false;
+
+    // Booleans used for the second radio buttons, "To" buttons
     boolean isUsdTo = false;
     boolean isEurTo = false;
+    boolean isGbpTo = false;
+    boolean isInrTo = false;
+    boolean isAudTo = false;
 
+    // Function that checks the the first radio buttons
     public void onFromRadio (View view) {
 
+        // Gets the boolean value from the radio button
         boolean checked = ((RadioButton) view).isChecked();
 
+        // Switch-Case statements that check each radio button to see if it was selected
         switch (view.getId())   {
             case R.id.usdFrom:
                 if (checked) {
