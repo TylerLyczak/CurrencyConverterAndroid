@@ -170,7 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="18px"
-            android:onClick="onFromRadio"
+            android:onClick="onToRadio"
             android:text="GBP" />
 
         <RadioButton
@@ -178,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="18px"
-            android:onClick="onFromRadio"
+            android:onClick="onToRadio"
             android:text="INR" />
 
         <RadioButton
@@ -186,7 +186,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="18px"
-            android:onClick="onFromRadio"
+            android:onClick="onToRadio"
             android:text="AUD" />
 
     </RadioGroup>

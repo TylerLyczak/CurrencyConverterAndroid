@@ -3,6 +3,7 @@ package com.example.currency_converter;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -107,11 +108,65 @@ public class MainActivity extends AppCompatActivity {
         if (fromInt == toInt)   {
             return numToConvert;
         }
-        else if (fromInt == 1 && toInt == 2)   {
-            return roundBy2(numToConvert*0.90);
+        // From USD
+        else if (fromInt == 1)   {
+            // To EUR
+            if (toInt == 2)         return roundBy2(numToConvert*0.90);
+            // To GBP
+            else if (toInt == 3)    return roundBy2(numToConvert*0.773493);
+            // To INR
+            else if (toInt == 4)    return roundBy2(numToConvert*71.7924);
+            // To AUD
+            else if (toInt == 5)    return roundBy2(numToConvert*1.47085);
+            else                    return numToConvert;
         }
-        else if (fromInt == 2 && toInt == 1)  {
-            return roundBy2(numToConvert*1.11);
+        // From EUR
+        else if (fromInt == 2)  {
+            // To USD
+            if (toInt == 1)         return roundBy2(numToConvert*1.11);
+            // To GBP
+            else if (toInt == 3)    return roundBy2(numToConvert*0.856798);
+            // To INR
+            else if (toInt == 4)    return roundBy2(numToConvert*79.5283);
+            // To AUD
+            else if (toInt == 5)    return roundBy2(numToConvert*1.62946);
+            else                    return numToConvert;
+        }
+        // From GBP
+        else if (fromInt == 3)  {
+            // To USD
+            if (toInt == 1)         return roundBy2(numToConvert*1.29287);
+            // To EUR
+            else if (toInt == 2)    return roundBy2(numToConvert*1.16709);
+            // To INR
+            else if (toInt == 4)    return roundBy2(numToConvert*92.7983);
+            // To AUD
+            else if (toInt == 5)    return roundBy2(numToConvert*1.90159);
+            else                    return numToConvert;
+        }
+        // From INR
+        else if (fromInt == 4)  {
+            // To USD
+            if (toInt == 1)         return roundBy2(numToConvert*0.0139305);
+            // To EUR
+            else if (toInt == 2)    return roundBy2(numToConvert*0.0125737);
+            // To GBP
+            else if (toInt == 3)    return roundBy2(numToConvert*0.0107713);
+            // To AUD
+            else if (toInt == 5)    return roundBy2(numToConvert*0.0204842);
+            else                    return numToConvert;
+        }
+        // From AUD
+        else if (fromInt == 5)  {
+            // To USD
+            if (toInt == 1)         return roundBy2(numToConvert*0.679897);
+            // To EUR
+            else if (toInt == 2)    return roundBy2(numToConvert*0.613800);
+            // To GBP
+            else if (toInt == 3)    return roundBy2(numToConvert*0.525888);
+            // To INR
+            else if (toInt == 4)    return roundBy2(numToConvert*48.8249);
+            else                    return numToConvert;
         }
         else    {
             return 0.0;
