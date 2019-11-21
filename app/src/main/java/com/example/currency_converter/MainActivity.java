@@ -15,38 +15,47 @@ import static java.lang.Math.round;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Booleans used for the first radio buttons, "From" buttons
-    boolean isUsdFrom = false;
-    boolean isEurFrom = false;
-    boolean isGbpFrom = false;
-    boolean isInrFrom = false;
-    boolean isAudFrom = false;
+    // 0 = None Selected, 1 = USD, 2 = EUR, 3 = GDP, 4 = INR, 5 = AUD
+    // Int and boolean used for the first radio buttons, "From" buttons
+    int fromInt = 0;
+    boolean fromSelected = false;
 
-    // Booleans used for the second radio buttons, "To" buttons
-    boolean isUsdTo = false;
-    boolean isEurTo = false;
-    boolean isGbpTo = false;
-    boolean isInrTo = false;
-    boolean isAudTo = false;
+    // Int and boolean used for the first radio buttons, "To" buttons
+    int toInt = 0;
+    boolean toSelected = false;
 
     // Function that checks the the first radio buttons
     public void onFromRadio (View view) {
 
         // Gets the boolean value from the radio button
         boolean checked = ((RadioButton) view).isChecked();
+        fromSelected = true;
 
         // Switch-Case statements that check each radio button to see if it was selected
         switch (view.getId())   {
             case R.id.usdFrom:
                 if (checked) {
-                    isUsdFrom = true;
-                    isEurFrom = false;
+                    fromInt = 1;
                 }
                 break;
             case R.id.eurFrom:
                 if (checked)    {
-                    isEurFrom = true;
-                    isUsdFrom = false;
+                    fromInt = 2;
+                }
+                break;
+            case R.id.gbpFrom:
+                if (checked)    {
+                    fromInt = 3;
+                }
+                break;
+            case R.id.inrFrom:
+                if (checked)    {
+                    fromInt = 4;
+                }
+                break;
+            case R.id.audFrom:
+                if (checked)    {
+                    fromInt = 5;
                 }
                 break;
         }
@@ -55,39 +64,37 @@ public class MainActivity extends AppCompatActivity {
     public void onToRadio (View view) {
 
         boolean checked = ((RadioButton) view).isChecked();
+        toSelected = true;
 
         switch (view.getId())   {
             case R.id.usdTo:
                 if (checked) {
-                    isUsdTo = true;
-                    isEurTo = false;
+                    toInt = 1;
                 }
                 break;
             case R.id.eurTo:
                 if (checked)    {
-                    isEurTo = true;
-                    isUsdTo = false;
+                    toInt = 2;
+                }
+                break;
+            case R.id.gbpTo:
+                if (checked)    {
+                    toInt = 3;
+                }
+                break;
+            case R.id.inrTo:
+                if (checked)    {
+                    toInt = 4;
+                }
+                break;
+            case R.id.audTo:
+                if (checked)    {
+                    toInt = 5;
                 }
                 break;
         }
     }
 
-    private int checkBools ()   {
-        if (isUsdFrom && isUsdTo)   {
-            return 1;
-        }
-        else if (isEurFrom && isEurTo)    {
-            return 1;
-        }
-        else if (isUsdFrom && isEurTo) {
-            return 2;
-        }
-        else if (isEurFrom && isUsdTo) {
-            return 3;
-        }
-
-        return 0;
-    }
 
     private double roundBy2(double value) {
         BigDecimal bd = BigDecimal.valueOf(value);
@@ -95,14 +102,15 @@ public class MainActivity extends AppCompatActivity {
         return bd.doubleValue();
     }
 
-    private double doComputation (int funType, double numToConvert)   {
-        if (funType == 1)   {
+
+    private double doComputation (double numToConvert)   {
+        if (fromInt == toInt)   {
             return numToConvert;
         }
-        else if (funType == 2)   {
+        else if (fromInt == 1 && toInt == 2)   {
             return roundBy2(numToConvert*0.90);
         }
-        else if (funType == 3)  {
+        else if (fromInt == 2 && toInt == 1)  {
             return roundBy2(numToConvert*1.11);
         }
         else    {
@@ -120,19 +128,17 @@ public class MainActivity extends AppCompatActivity {
         if (text == null && text.isEmpty())    {
             Toast.makeText(this, "Nothing was inputed", Toast.LENGTH_SHORT).show();
         }
-        else if (!isUsdFrom && !isEurFrom)  {
+        else if (!fromSelected)  {
             Toast.makeText(this, "No 'From' Currency was selected", Toast.LENGTH_SHORT).show();
         }
-        else if (!isUsdTo && !isEurTo) {
+        else if (!toSelected) {
             Toast.makeText(this, "No 'To' Currency was selected", Toast.LENGTH_SHORT).show();
         }
         else    {
-            // make function to check what bools are selected
-            int decideInt = checkBools();
 
             double origVal = Double.parseDouble(text);
 
-            double newVal = doComputation(decideInt, origVal);
+            double newVal = doComputation(origVal);
 
             String answer = newVal+"";
 
