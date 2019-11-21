@@ -62,11 +62,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    // Function that checks the the second radio buttons
     public void onToRadio (View view) {
 
+        // Gets the boolean value from the radio button
         boolean checked = ((RadioButton) view).isChecked();
         toSelected = true;
 
+        // Switch-Case statements that check each radio button to see if it was selected
         switch (view.getId())   {
             case R.id.usdTo:
                 if (checked) {
@@ -97,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // Helper function that will round the double to two decimal places
     private double roundBy2(double value) {
         BigDecimal bd = BigDecimal.valueOf(value);
         bd = bd.setScale(2, RoundingMode.HALF_UP);
@@ -104,7 +109,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // Function that will convert the amount of money given to the other currency
     private double doComputation (double numToConvert)   {
+        // If both buttons are the same, then it will return that same amount
         if (fromInt == toInt)   {
             return numToConvert;
         }
@@ -174,29 +181,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // Function for the submit button to do the calculation
     public void onSubmit (View view)    {
 
+        // Gets the number the user inputed
         EditText editText = (EditText)findViewById(R.id.textField);
-
         String text = editText.getText().toString();
 
+        // Checks the string to make sure its valid
         if (text == null && text.isEmpty())    {
             Toast.makeText(this, "Nothing was inputed", Toast.LENGTH_SHORT).show();
         }
+        // If the user did not select a "From" radio button, it will show them an error
         else if (!fromSelected)  {
             Toast.makeText(this, "No 'From' Currency was selected", Toast.LENGTH_SHORT).show();
         }
+        // If the user did not select a "To" radio button, it will show them an error
         else if (!toSelected) {
             Toast.makeText(this, "No 'To' Currency was selected", Toast.LENGTH_SHORT).show();
         }
         else    {
-
+            // Converts the string to a double
             double origVal = Double.parseDouble(text);
 
+            // Computes the new value the user wants
             double newVal = doComputation(origVal);
 
+            // Puts the new value into a string
             String answer = newVal+"";
 
+            // Toasts the answer back to the user
             Toast.makeText(this, answer, Toast.LENGTH_SHORT).show();
         }
     }
